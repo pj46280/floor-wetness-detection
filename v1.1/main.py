@@ -1,15 +1,21 @@
-import time
+import time, os
 from ultralytics import YOLO
 from capture_image import capture_image
 from send_packet import send_data_http, send_data_uart
 from PIL import Image
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+base_dir = config['CM5']['BaseDir']
+path = os.path.join(base_dir, config['CM5']['Model'])
 
 # --- Load YOLO model ---
-model = YOLO("/home/tynatech/WetFloorDetection/v1.1/WetFloorDetection-v1.1.onnx")
+model = YOLO(f"{path}")
 
 # --- Capture or use existing image ---
 filename = capture_image()
-# filename = "/home/tynatech/WetFloorDetection/v1.1/images/photo_20250930-140213.jpg"
 
 # --- Run inference ---
 results = model(filename, save=True, imgsz=640, conf=0.25)

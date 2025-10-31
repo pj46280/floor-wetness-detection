@@ -1,11 +1,17 @@
 import time, json, requests
 import struct, serial
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+url = config['CM5']['UbidotsUrl']
+token = config['CM5']['UbidotsToken']
+deviceLabel = config['CM5']['DeviceLabel']
 
 def send_data_http(payload):
-    device_label = "deviceLabel"
-    ubidots_token = "BBUS-12bzjWk4"
 
-    url = f"https://app.iotyn.in/api/v1.6/devices/{device_label}/?token={ubidots_token}"
+    url = f"{url}/{deviceLabel}/?token={token}"
 
     headers = {
         "Content-Type": "application/json"
