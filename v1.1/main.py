@@ -8,8 +8,8 @@ import configparser
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-base_dir = config['CM4']['BaseDir']
-path = os.path.join(base_dir, config['CM4']['Model'])
+base_dir = config['CM5']['BaseDir']
+path = os.path.join(base_dir, config['CM5']['Model'])
 
 # --- Load YOLO model ---
 model = YOLO(f"{path}")

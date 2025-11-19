@@ -4,7 +4,7 @@ import configparser
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-base_dir = config['CM4']['BaseDir']
+base_dir = config['CM5']['BaseDir']
 
 def capture_image():
     timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")

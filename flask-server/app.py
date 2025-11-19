@@ -5,7 +5,7 @@ import os
 
 # --- CONFIGURATION ---
 CONFIG_FILE = "/home/tynatech/floor-wetness-detection/v1.1/config.ini"
-DEVICE_SECTION = "CM4"
+DEVICE_SECTION = "CM5"
 
 app = Flask(__name__)
 

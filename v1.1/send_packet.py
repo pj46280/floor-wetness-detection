@@ -5,9 +5,9 @@ import configparser
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-url = config['CM4']['UbidotsUrl']
-token = config['CM4']['UbidotsToken']
-devEUI = config['CM4']['devEUI']
+url = config['CM5']['UbidotsUrl']
+token = config['CM5']['UbidotsToken']
+devEUI = config['CM5']['devEUI']
 
 def send_data_http(payload):
 
