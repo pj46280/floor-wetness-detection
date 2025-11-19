@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Configuration</title>
+    <style>
+        /* --- GLOBAL VARIABLES & RESET --- */
+        :root {
+            --primary: #3b82f6; /* Blue */
+            --primary-dark: #2563eb;
+            --bg-gradient-1: #eff6ff;
+            --bg-gradient-2: #dbeafe;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --card-bg: #ffffff;
+            --info-box-bg: #f8fafc;
+            
+            /* GREEN THEME VARIABLES */
+            --green-bg: #f0fdf4;
+            --green-border: #bbf7d0;
+            --green-text-label: #15803d;
+            --green-text-value: #166534;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+
+        /* --- ANIMATED BACKGROUND --- */
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(-45deg, var(--bg-gradient-1), var(--bg-gradient-2), #bfdbfe, var(--bg-gradient-1));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            padding: 20px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- MAIN CARD --- */
+        .card {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 550px;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        /* LOGOUT LINK - Desktop: Top Right (Fixed) */
+        .logout {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem; /* Back to Right */
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: 0.2s;
+            background-color: transparent;
+        }
+        .logout:hover { background: #f1f5f9; color: #ef4444; }
+
+        h1 {
+            text-align: center;
+            color: #1e3a8a;
+            font-size: 1.75rem;
+            margin-bottom: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        /* --- INFO GRID (Read Only) --- */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-item {
+            background: var(--info-box-bg);
+            border: 1px solid #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-item.full {
+            grid-column: span 2;
+        }
+
+        /* GREEN HIGHLIGHT STYLE */
+        .info-item.highlight {
+            background: var(--green-bg);
+            border-color: var(--green-border);
+        }
+
+        .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-sub);
+            margin-bottom: 0.25rem;
+            font-weight: 700;
+        }
+
+        .info-item.highlight .label { color: var(--green-text-label); }
+
+        .value {
+            font-size: 1rem;
+            color: var(--text-main);
+            font-weight: 600;
+            word-break: break-all;
+        }
+
+        .info-item.highlight .value {
+            color: var(--green-text-value);
+            font-size: 1.25rem;
+        }
+
+        /* --- FORM AREA --- */
+        .form-area {
+            border-top: 2px solid #f1f5f9;
+            padding-top: 1.5rem;
+        }
+
+        .form-group { margin-bottom: 1.25rem; }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.875rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+        .btn-save {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-save:hover { background-color: var(--primary-dark); }
+
+        /* --- SUCCESS MODAL --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; transition: 0.3s;
+            backdrop-filter: blur(3px);
+            z-index: 100;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+
+        .modal-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            width: 90%;
+            max-width: 350px;
+            transform: scale(0.9);
+            transition: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .modal-overlay.active .modal-box { transform: scale(1); }
+
+        .success-icon {
+            font-size: 3rem; color: #10b981;
+            background: #d1fae5; width: 80px; height: 80px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .btn-close {
+            background: var(--primary); color: white; border: none;
+            padding: 0.5rem 2rem; border-radius: 0.5rem; cursor: pointer;
+            margin-top: 1.5rem; font-size: 1rem;
+        }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media (max-width: 480px) {
+            /* Make Logout button 'static' (part of the normal flow) 
+               so it pushes the title down instead of overlapping it.
+            */
+            .logout {
+                position: static; 
+                display: block;
+                text-align: right; /* Keep aligned to the right */
+                margin-bottom: 0.5rem; /* Add space below button */
+            }
+            
+            /* Reset Title Margin */
+            h1 {
+                margin-top: 0; 
+                font-size: 1.5rem;
+            }
+
+            .info-grid { grid-template-columns: 1fr; }
+            .info-item.full { grid-column: span 1; }
+            .card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <a href="/logout" class="logout">Logout →</a>
+        <h1>Configuration</h1>
+
+        <!-- READ-ONLY INFO -->
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="label">DevEUI</span>
+                <span class="value">{{ devEUI }}</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Frequency</span>
+                <span class="value">{{ frequency }}</span>
+            </div>
+            <div class="info-item full">
+                <span class="label">AppEUI</span>
+                <span class="value">{{ appEUI }}</span>
+            </div>
+            
+            <!-- Highlighted Current Interval (Green) -->
+            <div class="info-item full highlight">
+                <span class="label">Current Interval Set</span>
+                <span class="value">{{ interval }} minutes</span>
+            </div>
+        </div>
+
+        <!-- UPDATE FORM -->
+        <div class="form-area">
+            <form action="/" method="POST" id="configForm">
+                <div class="form-group">
+                    <label for="interval" class="form-label">Change Interval (Minutes)</label>
+                    <input type="number" id="interval" name="interval" class="form-input" 
+                           placeholder="Enter new value..." min="1" required>
+                </div>
+                <button type="submit" class="btn-save">Update Configuration</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-box">
+            <div class="success-icon">✓</div>
+            <h3 style="color:#333; margin-bottom:0.5rem;">Success!</h3>
+            <p style="color:#666;">The interval has been updated.</p>
+            <button class="btn-close" onclick="closeModal()">OK</button>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('configForm');
+        const modal = document.getElementById('successModal');
+
+        form.addEventListener('submit', () => {
+            localStorage.setItem('submitted', 'true');
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('submitted') === 'true') {
+                modal.classList.add('active');
+                localStorage.removeItem('submitted');
+            }
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+        
+        modal.addEventListener('click', (e) => {
+            if(e.target === modal) closeModal();
+        })
+    </script>
+
+</body>
+</html>
+

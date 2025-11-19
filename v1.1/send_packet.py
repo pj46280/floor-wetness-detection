@@ -7,11 +7,11 @@ config.read('config.ini')
 
 url = config['CM4']['UbidotsUrl']
 token = config['CM4']['UbidotsToken']
-deviceLabel = config['CM4']['DeviceLabel']
+devEUI = config['CM4']['devEUI']
 
 def send_data_http(payload):
 
-    url = f"{url}/{deviceLabel}/?token={token}"
+    url = f"{url}/{devEUI}/?token={token}"
 
     headers = {
         "Content-Type": "application/json"
