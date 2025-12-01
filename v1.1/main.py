@@ -2,6 +2,7 @@ import time, os
 from ultralytics import YOLO
 from capture_image import capture_image
 from send_packet import send_data_http, send_data_uart
+from cleanup import cleanup
 from PIL import Image
 import configparser
 
@@ -61,4 +62,5 @@ payload = {
 #send_data_http(payload)
 send_data_uart(payload)
 
+cleanup()
 
