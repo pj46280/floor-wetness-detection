@@ -26,27 +26,29 @@ app.secret_key = get_secret_key()
 
 # --- 2. USER CREDENTIALS ---
 USERS = {
-    "admin": "admin123"
+    "admin": "Tynsense#132",
+    "user1": "password",
+    "user2": "password"
 }
 
 # --- 3. HELPER FUNCTIONS ---
 def load_config():
+    config = configparser.ConfigParser()
+    config.read(CONFIG_FILE)
     if not os.path.exists(CONFIG_FILE):
         return {
-            "devEUI": "24E124136E172026 (Mock)",
-            "appEUI": "A0B1C2D3E4F5 (Mock)",
-            "interval": 20,
+            "devEUI": "xxx-xxxx-xxxx-xxxx",
+            "appEUI": "appEUI",
+            "interval": "n",
             "frequency": "IN865"
         }
 
-    config = configparser.ConfigParser()
-    config.read(CONFIG_FILE)
     
     section = config[DEVICE_SECTION] if DEVICE_SECTION in config else config["DEFAULT"]
 
     return {
-        "devEUI": section.get("devEUI", "Unknown"),
-        "appEUI": section.get("appEUI", "Not Set"),
+        "devEUI": section.get("deveui", "Unknown"),
+        "appEUI": section.get("appeui", "Not Set"),
         "interval": section.getint("interval", 5),
         "frequency": "IN865" 
     }
