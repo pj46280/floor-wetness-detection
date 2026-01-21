@@ -4,7 +4,7 @@ import subprocess
 import os
 
 # --- CONFIGURATION ---
-CONFIG_FILE = "/home/tynatech/floor-wetness-detection/v1.1/config.ini"
+CONFIG_FILE = "/home/tynatech/floor-wetness-detection/v1.2/config.ini"
 DEVICE_SECTION = "CM4"
 
 app = Flask(__name__)
