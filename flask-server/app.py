@@ -76,7 +76,7 @@ def update_cronjob():
 
     cron_line = (
         f"*/{interval} * * * * "
-        f"cd /home/tynatech/floor-wetness-detection/v1.1 && "
+        f"cd /home/tynatech/floor-wetness-detection/v1.2 && "
         f"/home/tynatech/venv/bin/python3 main.py >> "
         f"/home/tynatech/logs/floor-wetness-detection-cron.log 2>&1"
     )

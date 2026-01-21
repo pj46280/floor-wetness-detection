@@ -1,0 +1,1 @@
+*/1 * * * * cd /home/tynatech/floor-wetness-detection/v1.2 && /home/tynatech/venv/bin/python3 main.py >> /home/tynatech/logs/floor-wetness-detection-cron.log 2>&1

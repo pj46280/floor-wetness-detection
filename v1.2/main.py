@@ -60,7 +60,7 @@ payload = {
 }
 
 #send_data_http(payload)
-send_data_uart(payload)
+#send_data_uart(payload)
 
 cleanup()
 
