@@ -4,7 +4,7 @@ import subprocess
 import os
 
 # --- CONFIGURATION ---
-CONFIG_FILE = "/home/tynatech/floor-wetness-detection/v1.1/config.ini"
+CONFIG_FILE = "/home/tynatech/floor-wetness-detection/v1.2/config.ini"
 DEVICE_SECTION = "CM5"
 
 app = Flask(__name__)
@@ -26,7 +26,8 @@ app.secret_key = get_secret_key()
 
 # --- 2. USER CREDENTIALS ---
 USERS = {
-    "admin": "admin123"
+    "admin": "admin123",
+    "user1": "password"
 }
 
 # --- 3. HELPER FUNCTIONS ---
@@ -74,7 +75,7 @@ def update_cronjob():
 
     cron_line = (
         f"*/{interval} * * * * "
-        f"cd /home/tynatech/floor-wetness-detection/v1.1 && "
+        f"cd /home/tynatech/floor-wetness-detection/v1.2 && "
         f"/home/tynatech/venv/bin/python3 main.py >> "
         f"/home/tynatech/logs/floor-wetness-detection-cron.log 2>&1"
     )

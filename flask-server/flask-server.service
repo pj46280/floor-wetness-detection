@@ -1,0 +1,28 @@
+[Unit]
+Description=Floor Wetness Detection Flask Server
+After=network.target
+
+[Service]
+# User and Group the application will run as
+User=tynatech
+Group=tynatech
+
+# The working directory (where your app.py is located)
+WorkingDirectory=/home/tynatech/floor-wetness-detection/flask-server/
+
+# Set the environment path to your venv so dependencies are found
+Environment="PATH=/home/tynatech/venv/bin:/usr/local/bin:/usr/bin:/bin"
+
+# Command to start the app. 
+# Pointing directly to the venv python binary is equivalent to "activating" it.
+ExecStart=/home/tynatech/venv/bin/python app.py
+
+# Restart the service automatically if it crashes
+Restart=always
+
+# Wait a few seconds before restarting to prevent rapid looping
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
