@@ -5,7 +5,7 @@ import configparser
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-base_dir = config['CM4']['BaseDir']
+base_dir = config['CM5']['BaseDir']
 
 images_dir = os.path.join(base_dir, "images")
 runs_dir = os.path.join(base_dir, "runs")   # YOLO output
