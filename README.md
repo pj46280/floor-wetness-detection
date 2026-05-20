@@ -15,4 +15,6 @@ Or the detection simply not happen because model is too much focused on detecing
 
 For Examples: 
 
+![Example](Ex-1.jpg)
+
 
